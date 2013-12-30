@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131230184147) do
+ActiveRecord::Schema.define(version: 20131230184704) do
 
   create_table "accounts", force: true do |t|
     t.string "name",              null: false
@@ -21,6 +21,12 @@ ActiveRecord::Schema.define(version: 20131230184147) do
     t.string "region",            null: false
     t.string "bucket_name",       null: false
   end
+
+  create_table "availability_zones", force: true do |t|
+    t.string "name", null: false
+  end
+
+  add_index "availability_zones", ["name"], name: "index_availability_zones_on_name", unique: true, using: :btree
 
   create_table "products", force: true do |t|
     t.string "code", null: false
