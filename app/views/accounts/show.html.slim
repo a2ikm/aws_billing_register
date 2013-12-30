@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @account.name
+p
+  strong Account:
+  = @account.account_id
+p
+  strong Access key:
+  = @account.access_key_id
+p
+  strong Secret access key:
+  = @account.secret_access_key
+p
+  strong Region:
+  = @account.region
+p
+  strong Bucket name:
+  = @account.bucket_name
+
+= link_to 'Edit', edit_account_path(@account)
+'|
+= link_to 'Back', accounts_path
