@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131230183653) do
+ActiveRecord::Schema.define(version: 20131230184147) do
 
   create_table "accounts", force: true do |t|
     t.string "name",              null: false
@@ -28,5 +28,11 @@ ActiveRecord::Schema.define(version: 20131230183653) do
   end
 
   add_index "products", ["code"], name: "index_products_on_code", unique: true, using: :btree
+
+  create_table "usage_types", force: true do |t|
+    t.string "name", null: false
+  end
+
+  add_index "usage_types", ["name"], name: "index_usage_types_on_name", unique: true, using: :btree
 
 end
