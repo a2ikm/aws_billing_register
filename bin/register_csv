@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+unless defined? Rails
+  require File.expand_path("../../config/environment", __FILE__)
+end
+
+require "csv"
+
+def main(args)
+  if args.length == 2
+    execute!(args)
+  else
+    puts usage
+  end
+end
+
+def usage
+  <<-USAGE
+Usage: csv_register <ACCOUNT_NAME> <CSV_PATH>
+  USAGE
+end
+
+def execute!(args)
+  account = Account.find_by(name: args[0])
+
+  csv_path = File.expand_path(args[1], Dir.pwd)
+  csv_string = File.read(csv_path)
+
+  CsvRegister.execute!(account, csv_string)
+end
+
+main(ARGV)
