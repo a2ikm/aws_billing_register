@@ -4,8 +4,6 @@ unless defined? Rails
   require File.expand_path("../../config/environment", __FILE__)
 end
 
-require "csv"
-
 def main(args)
   if args.length == 2
     execute!(args)

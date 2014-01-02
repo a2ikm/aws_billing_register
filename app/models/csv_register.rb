@@ -1,3 +1,5 @@
+require "csv"
+
 class CsvRegister
   def self.execute!(account, csv_string)
     new(account).execute!(csv_string)
