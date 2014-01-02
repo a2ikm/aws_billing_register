@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20131230185208) do
   add_index "availability_zones", ["name"], name: "index_availability_zones_on_name", unique: true, using: :btree
 
   create_table "cost_allocations", force: true do |t|
+    t.integer  "account_id",                null: false
     t.string   "record_id",                 null: false
     t.datetime "billing_period_start_date", null: false
     t.datetime "billing_period_end_date",   null: false
@@ -40,6 +41,7 @@ ActiveRecord::Schema.define(version: 20131230185208) do
     t.float    "total_cost",                null: false
   end
 
+  add_index "cost_allocations", ["account_id"], name: "index_cost_allocations_on_account_id", using: :btree
   add_index "cost_allocations", ["availability_zone_id"], name: "index_cost_allocations_on_availability_zone_id", using: :btree
   add_index "cost_allocations", ["billing_period_start_date", "billing_period_end_date"], name: "index_cost_allocations_on_billing_period", using: :btree
   add_index "cost_allocations", ["product_id"], name: "index_cost_allocations_on_product_id", using: :btree

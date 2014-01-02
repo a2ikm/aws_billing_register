@@ -1,6 +1,7 @@
 class CreateCostAllocations < ActiveRecord::Migration
   def change
     create_table :cost_allocations do |t|
+      t.references  :account,                   null: false
       t.string      :record_id,                 null: false 
       t.datetime    :billing_period_start_date, null: false
       t.datetime    :billing_period_end_date,   null: false
@@ -12,6 +13,7 @@ class CreateCostAllocations < ActiveRecord::Migration
       t.float       :total_cost,                null: false
     end
 
+    add_index :cost_allocations, [:account_id]
     add_index :cost_allocations, [:record_id], unique: true
     add_index :cost_allocations, [:billing_period_start_date, :billing_period_end_date], name: "index_cost_allocations_on_billing_period"
     add_index :cost_allocations, [:product_id]

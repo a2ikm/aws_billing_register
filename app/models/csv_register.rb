@@ -46,7 +46,7 @@ class CsvRegister
     end
 
     def register_record(row)
-      CostAllocation.where(record_id: row["RecordID"]).first_or_create! do |cost_allocation|
+      @account.cost_allocations.where(record_id: row["RecordID"]).first_or_create! do |cost_allocation|
         cost_allocation.billing_period_start_date = parse_time(row["BillingPeriodStartDate"])
         cost_allocation.billing_period_end_date   = parse_time(row["BillingPeriodEndDate"])
         cost_allocation.invoice_date              = parse_time(row["InvoiceDate"])
