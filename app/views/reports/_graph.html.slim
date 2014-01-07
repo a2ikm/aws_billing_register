@@ -1,22 +1,29 @@
 h1 #{account.name} / #{@report.date.strftime("%Y-%m")}
 
 table.table
-  tr
-    th.header RecordID
-    th.header ProductCode
-    th.header UsageType
-    th.header AZ
-    th.header UsageQuantity
-    th.header TotalCost
-
-  - @report.cost_allocations.each do |cost_allocation|
+  thead
     tr
-      td = cost_allocation.record_id
-      td = cost_allocation.product.code
-      td = cost_allocation.usage_type.name
-      td = cost_allocation.availability_zone.name
-      td = cost_allocation.usage_quantity
-      td = cost_allocation.total_cost
+      th.header RecordID
+      th.header ProductCode
+      th.header UsageType
+      th.header AZ
+      th.header UsageQuantity
+      th.header TotalCost
+
+  tbody
+    - @report.cost_allocations.each do |cost_allocation|
+      tr
+        td = cost_allocation.record_id
+        td = cost_allocation.product.code
+        td = cost_allocation.usage_type.name
+        td = cost_allocation.availability_zone.name
+        td = cost_allocation.usage_quantity
+        td = cost_allocation.total_cost
+
+  tfoot
+    tr
+      td colspan="5" Total
+      td = @report.sum_total_costs
 
 h2 reports
 
