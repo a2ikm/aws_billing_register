@@ -1,9 +1,8 @@
 h1 = account.name
 
+#chart data-reports="#{@reports.map { |r| { ym: r.date.strftime("%Y-%m"),  statement_total: r.statement_total } }.to_json}"
+
 == render partial: "list"
-
-= tag :div, id: "chart", data: { reports: @reports.map { |r| { ym: r.date.strftime("%Y-%m"), statement_total: r.statement_total } }.to_json }
-
 
 javascript:
   $(function() {
