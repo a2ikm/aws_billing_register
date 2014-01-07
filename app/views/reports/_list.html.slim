@@ -1,0 +1,5 @@
+h2 reports
+
+ul
+  - @reports.each do |report|
+    li = link_to report.date.strftime("%Y-%m"), account_report_path(account, report)

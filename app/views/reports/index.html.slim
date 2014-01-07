@@ -1,1 +1,19 @@
-== render partial: "graph"
+h1 = account.name
+
+== render partial: "list"
+
+= tag :div, id: "chart", data: { reports: @reports.map { |r| { ym: r.date.strftime("%Y-%m"), statement_total: r.statement_total } }.to_json }
+
+
+javascript:
+  $(function() {
+    Morris.Line({
+      element: "chart",
+      data: $("#chart").data("reports"),
+      xkey: "ym",
+      ykeys: ["statement_total"],
+      labels: ["Statement Total"],
+      xLabels: "month"
+    });
+  });
+

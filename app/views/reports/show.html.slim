@@ -1,1 +1,28 @@
-== render partial: "graph"
+h1 #{account.name} / #{@report.date.strftime("%Y-%m")}
+
+table.table
+  thead
+    tr
+      th.header RecordID
+      th.header ProductCode
+      th.header UsageType
+      th.header AZ
+      th.header UsageQuantity
+      th.header TotalCost
+
+  tbody
+    - @report.cost_allocations.each do |cost_allocation|
+      tr
+        td = cost_allocation.record_id
+        td = cost_allocation.product.code
+        td = cost_allocation.usage_type.name
+        td = cost_allocation.availability_zone.name
+        td = cost_allocation.usage_quantity
+        td = cost_allocation.total_cost
+
+  tfoot
+    tr
+      td colspan="5" Statement Total
+      td = @report.statement_total
+
+== render partial: "list"
