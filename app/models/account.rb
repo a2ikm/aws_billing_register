@@ -14,14 +14,18 @@ class Account < ActiveRecord::Base
       raise "No bucket named `#{bucket_name}` for account `#{name}`"
   end
 
-  def cost_allocation_csv_string_for(time)
-    object_name = "%s-aws-cost-allocation-%d-%02d.csv" % [account_id, time.year, time.month]
-    object = bucket.objects[object_name]
+  def cost_allocation_csv_objects
+    prefix = "#{account_id}-aws-cost-allocation-"
+    bucket.objects.with_prefix(prefix)
+  end
 
-    if object = bucket.objects[object_name]
-      object.read
+  def find_or_initialize_report_for_s3object(s3object)
+    if match = /-(\d{4})-(\d{2})\.csv$/.match(s3object.key)
+      year  = match[1]
+      month = match[2]
+      reports.where(year: year, month: month).first_or_initialize
     else
-      raise "No object named `#{object_name}` in bucket `#{bucket_name}` for account `#{name}`"
+      raise "missmatch: #{s3object.key}"
     end
   end
 end
