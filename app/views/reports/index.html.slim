@@ -2,7 +2,23 @@ h1 = account.name
 
 #chart data-reports="#{@reports.map { |r| { ym: r.date.strftime("%Y-%m"),  statement_total: r.statement_total } }.to_json}"
 
-== render partial: "list"
+h2 reports
+
+table.table
+  thead
+    tr
+      th.header Y-m
+      th.header Statement Total
+      th.header LastModified
+      th.header
+
+  tbody
+    - @reports.each do |report|
+      tr
+        td = report.date.strftime("%Y-%m")
+        td = report.statement_total
+        td = report.last_modified
+        td = link_to "Show", account_report_path(account, report)
 
 javascript:
   $(function() {
