@@ -64,7 +64,8 @@ ActiveRecord::Schema.define(version: 20140107174547) do
     t.float    "statement_total"
   end
 
-  add_index "reports", ["account_id"], name: "index_reports_on_account_id", using: :btree
+  add_index "reports", ["account_id", "year", "month"], name: "index_reports_on_account_id_and_year_and_month", unique: true, using: :btree
+  add_index "reports", ["year", "month"], name: "index_reports_on_year_and_month", using: :btree
 
   create_table "usage_types", force: true do |t|
     t.string "name", null: false
