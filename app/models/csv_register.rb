@@ -15,6 +15,7 @@ class CsvRegister
 
     register_user_tags(csv.headers)
     register_records(csv)
+    update_totals!(csv)
   end
 
   private
@@ -76,5 +77,20 @@ class CsvRegister
 
     def availability_zone(name)
       AvailabilityZone.where(name: name).first_or_create!
+    end
+
+    def update_totals!(csv)
+      csv.each do |row|
+        case record_id = row["RecordID"]
+        when "InvoiceTotal:Estimated"
+          @report.invoice_total = row["TotalCost"].to_f
+        when "StatementTotal"
+          @report.statement_total = row["TotalCost"].to_f
+        else
+          break if record_id.blank?
+        end
+      end
+
+      @report.save!
     end
 end

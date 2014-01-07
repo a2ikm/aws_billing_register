@@ -56,10 +56,12 @@ ActiveRecord::Schema.define(version: 20140107174547) do
   add_index "products", ["code"], name: "index_products_on_code", unique: true, using: :btree
 
   create_table "reports", force: true do |t|
-    t.integer  "account_id",    null: false
-    t.integer  "year",          null: false
-    t.integer  "month",         null: false
-    t.datetime "last_modified", null: false
+    t.integer  "account_id",      null: false
+    t.integer  "year",            null: false
+    t.integer  "month",           null: false
+    t.datetime "last_modified",   null: false
+    t.float    "invoice_total"
+    t.float    "statement_total"
   end
 
   add_index "reports", ["account_id"], name: "index_reports_on_account_id", using: :btree
