@@ -1,7 +1,14 @@
 task :import => :environment do
   Account.all.each do |account|
-    time = Time.now
-    csv_string = account.cost_allocation_csv_string_for(time)
-    CsvRegister.execute!(account, csv_string)
+    account.cost_allocation_csv_objects.each do |object|
+      report = account.find_or_initialize_report_for_s3object(object)
+      
+      if !report.persisted? || report.last_modified < object.last_modified
+        report.last_modified = object.last_modified
+        report.save!
+
+        CsvRegister.execute!(report, object.read)
+      end
+    end
   end
 end

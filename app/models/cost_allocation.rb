@@ -1,5 +1,5 @@
 class CostAllocation < ActiveRecord::Base
-  belongs_to :account
+  belongs_to :report
   belongs_to :product
   belongs_to :usage_type
   belongs_to :availability_zone

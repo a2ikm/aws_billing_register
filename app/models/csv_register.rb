@@ -1,12 +1,12 @@
 require "csv"
 
 class CsvRegister
-  def self.execute!(account, csv_string)
-    new(account).execute!(csv_string)
+  def self.execute!(report, csv_string)
+    new(report).execute!(csv_string)
   end
 
-  def initialize(account)
-    @account = account
+  def initialize(report)
+    @report = report
   end
 
   def execute!(csv_string)
@@ -48,7 +48,7 @@ class CsvRegister
     end
 
     def register_record(row)
-      @account.cost_allocations.where(record_id: row["RecordID"]).first_or_create! do |cost_allocation|
+      @report.cost_allocations.where(record_id: row["RecordID"]).first_or_create! do |cost_allocation|
         cost_allocation.billing_period_start_date = parse_time(row["BillingPeriodStartDate"])
         cost_allocation.billing_period_end_date   = parse_time(row["BillingPeriodEndDate"])
         cost_allocation.invoice_date              = parse_time(row["InvoiceDate"])
