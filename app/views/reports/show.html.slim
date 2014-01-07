@@ -10,6 +10,11 @@ table.table
       th.header UsageQuantity
       th.header TotalCost
 
+  tfoot
+    tr
+      td colspan="5" Statement Total
+      td = @report.statement_total
+
   tbody
     - @report.cost_allocations.each do |cost_allocation|
       tr
@@ -19,10 +24,5 @@ table.table
         td = cost_allocation.availability_zone.name
         td = cost_allocation.usage_quantity
         td = cost_allocation.total_cost
-
-  tfoot
-    tr
-      td colspan="5" Statement Total
-      td = @report.statement_total
 
 == render partial: "list"
