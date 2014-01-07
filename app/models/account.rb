@@ -1,5 +1,4 @@
 class Account < ActiveRecord::Base
-  has_many :cost_allocations
   has_many :reports
 
   def s3
