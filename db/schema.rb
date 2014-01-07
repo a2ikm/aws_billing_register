@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131230185208) do
+ActiveRecord::Schema.define(version: 20140107174547) do
 
   create_table "accounts", force: true do |t|
     t.string "name",              null: false
@@ -54,6 +54,15 @@ ActiveRecord::Schema.define(version: 20131230185208) do
   end
 
   add_index "products", ["code"], name: "index_products_on_code", unique: true, using: :btree
+
+  create_table "reports", force: true do |t|
+    t.integer  "account_id",    null: false
+    t.integer  "year",          null: false
+    t.integer  "month",         null: false
+    t.datetime "last_modified", null: false
+  end
+
+  add_index "reports", ["account_id"], name: "index_reports_on_account_id", using: :btree
 
   create_table "usage_types", force: true do |t|
     t.string "name", null: false
