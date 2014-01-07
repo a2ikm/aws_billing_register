@@ -1,3 +1,5 @@
 AwsBillingRegister::Application.routes.draw do
-  resources :accounts
+  resources :accounts do
+    resources :reports, only: [:index, :show]
+  end
 end

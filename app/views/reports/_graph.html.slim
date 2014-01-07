@@ -1,0 +1,25 @@
+h1 #{account.name} / #{@report.date.strftime("%Y-%m")}
+
+table.table
+  tr
+    th.header RecordID
+    th.header ProductCode
+    th.header UsageType
+    th.header AZ
+    th.header UsageQuantity
+    th.header TotalCost
+
+  - @report.cost_allocations.each do |cost_allocation|
+    tr
+      td = cost_allocation.record_id
+      td = cost_allocation.product.code
+      td = cost_allocation.usage_type.name
+      td = cost_allocation.availability_zone.name
+      td = cost_allocation.usage_quantity
+      td = cost_allocation.total_cost
+
+h2 reports
+
+ul
+  - @reports.each do |report|
+    li = link_to report.date.strftime("%Y-%m"), account_report_path(account, report)
