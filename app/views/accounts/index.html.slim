@@ -2,24 +2,18 @@ h1 Listing accounts
 
 table
   tr
-    th Name
-    th Account
-    th Access key
-    th Secret access key
-    th Region
-    th Bucket name
-    th
-    th
-    th
+    th.header Name
+    th.header AccountID
+    th.header
+    th.header
+    th.header
+    th.header
 
   - @accounts.each do |account|
     tr
       td = account.name
       td = account.account_id
-      td = account.access_key_id
-      td = account.secret_access_key
-      td = account.region
-      td = account.bucket_name
+      td = link_to 'Report', account_reports_path(account)
       td = link_to 'Show', account
       td = link_to 'Edit', edit_account_path(account)
       td = link_to 'Destroy', account, data: {:confirm => 'Are you sure?'}, :method => :delete
